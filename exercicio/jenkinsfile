@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone repo') {
+            steps {
+                git url: 'https://github.com/juliazuin/jenkins_lab.git', branch: 'master'
+            }
+        }
+
+        stage('sudo jenkins') {
+            steps {
+                sh "sudo su jenkins"
+            }
+        }
+        stage('cd terraform') {
+            steps {
+                sh "cd /var/lib/jenkins/workspace/jenkins_lab/exercicio/ex_terraform"
+            }
+        }
+        stage('terraform init') {
+            steps {
+                sh "terraform init"
+            }
+        }
+        stage('Terraform Plan') {
+            steps {
+                sh "terraform plan"
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                input 'Apply Plan'
+                sh "terraform apply --auto-approve"
+            }
+        }
+        stage('Test Nginx') {
+            steps {
+                sh "/var/lib/jenkins/workspace/jenkins_lab/exercicio/test.sh"
+            }
+        }
+        stage('Build AMI') {
+            steps {
+                sh "ls -la"
+            }
+        }
+    }
+}
