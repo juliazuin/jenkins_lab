@@ -1,0 +1,19 @@
+- hosts: all
+  become: true
+
+  tasks:
+    - name: "Update apt"
+      shell: "apt-get update"
+
+    - name: "Instala java"
+      shell: "apt install default-jdk -y"
+    
+    - name: "Instala pacotes em lote"
+      apt:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - nginx
+
+
+    
