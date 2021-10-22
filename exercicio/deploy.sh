@@ -1,6 +1,6 @@
 !/bin/bash
 
-cd exercicio/ex_terraform/terraform
+cd /workspace/jenkins_lab/exercicio/ex_terraform/terraform
 ~/terraform init
 ~/terraform apply -auto-approve
 

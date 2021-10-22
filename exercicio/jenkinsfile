@@ -2,36 +2,19 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone repo') {
+        stage("GIT"){
             steps {
-                git url: 'https://github.com/juliazuin/jenkins_lab.git', branch: 'master'
+                git branch: 'master',
+                    credentialsId: 'keydev',
+                    url: 'https://github.com/juliazuin/jenkins_lab.git'
+                sh "chmod +x ~/workspace/jenkins_lab/exercicio/deploy.sh"
             }
         }
+        
 
-        stage('sudo jenkins') {
-            steps {
-                sh "sudo su jenkins"
-            }
-        }
-        stage('cd terraform') {
-            steps {
-                sh "cd /var/lib/jenkins/workspace/jenkins_lab/exercicio/ex_terraform"
-            }
-        }
-        stage('terraform init') {
-            steps {
-                sh "terraform init"
-            }
-        }
         stage('Terraform Plan') {
             steps {
-                sh "terraform plan"
-            }
-        }
-        stage('Terraform Apply') {
-            steps {
-                input 'Apply Plan'
-                sh "terraform apply --auto-approve"
+                sh "~/workspace/jenkins_lab/exercicio/deploy.sh"
             }
         }
         stage('Test Nginx') {
