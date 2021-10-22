@@ -22,7 +22,7 @@ resource "aws_instance" "deploy_jenkins" {
 
 
 resource "aws_security_group" "acessos_jenkins_deploy" {
-  name        = "Julia-acessos_jenkins"
+  name        = "Julia-acessos_jenkins-deploy"
   description = "acessos inbound traffic"
   vpc_id      = "vpc-063fc945cde94d3ab"
 
