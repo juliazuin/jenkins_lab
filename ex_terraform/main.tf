@@ -39,6 +39,17 @@ resource "aws_security_group" "acessos_jenkins_deploy" {
       self : null
     },
     {
+      description      = "SSH from VPC"
+      from_port        = 80
+      to_port          = 80
+      protocol         = "tcp"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = []
+      prefix_list_ids  = null,
+      security_groups : null,
+      self : null
+    },
+    {
       cidr_blocks      = []
       description      = "Libera acesso jenkins"
       from_port        = 0
